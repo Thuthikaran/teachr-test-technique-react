@@ -1,43 +1,37 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from '../features/productSlice';
 import axios from '../services/axios';
-import AddProductForm from './AddProductForm';
 
 const Produit = () => {
-  const [produits, setProduits] = useState([]);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { products, status, error } = useSelector((state) => state.product);
+
+  // Local state for editing a product
   const [editingProduct, setEditingProduct] = useState(null);
   const [editNom, setEditNom] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editPrix, setEditPrix] = useState('');
   const [editCategorie, setEditCategorie] = useState('');
 
-  const fetchProducts = () => {
-    axios
-      .get('/produit')
-      .then((res) => setProduits(res.data))
-      .catch(() => setError('Error fetching products'));
-  };
-
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (status === 'idle') {
+      dispatch(fetchProducts());
+    }
+  }, [status, dispatch]);
 
-  // Callback for when a new product is added
-  const handleProductAdded = (newProduct) => {
-    setProduits((prev) => [...prev, newProduct]);
-  };
-
-  // Delete a product
+  // Delete product (using axios; you could also dispatch a Redux action)
   const handleDelete = (id) => {
     axios
       .delete(`/produit/${id}`)
       .then(() => {
-        setProduits(produits.filter((prod) => prod.id !== id));
+        // Re-fetch products after deletion
+        dispatch(fetchProducts());
       })
       .catch((err) => console.error('Delete error', err));
   };
 
-  // Start editing a product
+  // Start editing a product: fill local state with product data
   const startEditing = (product) => {
     setEditingProduct(product);
     setEditNom(product.nom);
@@ -46,7 +40,7 @@ const Produit = () => {
     setEditCategorie(product.categorie ? product.categorie.id : '');
   };
 
-  // Submit the edited product
+  // Submit the edited product update
   const handleEditSubmit = (e) => {
     e.preventDefault();
     const updatedProduct = {
@@ -55,15 +49,10 @@ const Produit = () => {
       prix: parseInt(editPrix, 10),
       categorie: editCategorie,
     };
-    // Note: Using `/produit/${editingProduct.id}` because axios base URL is already set to `/api`
     axios
       .put(`/produit/${editingProduct.id}`, updatedProduct)
       .then((res) => {
-        setProduits(
-          produits.map((prod) =>
-            prod.id === editingProduct.id ? res.data : prod
-          )
-        );
+        dispatch(fetchProducts());
         setEditingProduct(null);
       })
       .catch((err) => console.error('Update error', err));
@@ -72,10 +61,8 @@ const Produit = () => {
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Produits</h1>
-      {error && <p className="text-red-500 mb-2">{error}</p>}
-
-      {/* Form to add a new product */}
-      <AddProductForm onProductAdded={handleProductAdded} />
+      {status === 'loading' && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
       <div className="overflow-x-auto mt-4">
         <table className="w-full border-collapse bg-white shadow">
@@ -89,7 +76,7 @@ const Produit = () => {
             </tr>
           </thead>
           <tbody>
-            {produits.map((prod) => (
+            {products.map((prod) => (
               <tr key={prod.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border">
                   {editingProduct && editingProduct.id === prod.id ? (
@@ -172,13 +159,6 @@ const Produit = () => {
                 </td>
               </tr>
             ))}
-            {produits.length === 0 && (
-              <tr>
-                <td className="py-2 px-4 text-center border" colSpan="5">
-                  Aucun produit disponible
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>

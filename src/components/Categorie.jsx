@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCategories } from '../features/categorySlice';
 import axios from '../services/axios';
 
 const Categorie = () => {
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { categories, status, error } = useSelector((state) => state.category);
+
+  // Local state for adding and editing categories
   const [newCategoryName, setNewCategoryName] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
   const [editCategoryName, setEditCategoryName] = useState('');
 
-  // Fetch categories from the API
-  const fetchCategories = () => {
-    axios
-      .get('/categorie')
-      .then((res) => setCategories(res.data))
-      .catch(() => setError('Erreur lors de la récupération des catégories.'));
-  };
-
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    if (status === 'idle') {
+      dispatch(fetchCategories());
+    }
+  }, [status, dispatch]);
 
   // Add a new category
   const handleAddCategory = (e) => {
     e.preventDefault();
     axios
       .post('/categorie', { nom: newCategoryName })
-      .then((res) => {
-        setCategories([...categories, res.data]);
+      .then(() => {
+        dispatch(fetchCategories());
         setNewCategoryName('');
       })
       .catch((err) => console.error(err));
@@ -37,7 +35,7 @@ const Categorie = () => {
     axios
       .delete(`/categorie/${id}`)
       .then(() => {
-        setCategories(categories.filter((cat) => cat.id !== id));
+        dispatch(fetchCategories());
       })
       .catch((err) => console.error(err));
   };
@@ -53,11 +51,8 @@ const Categorie = () => {
     e.preventDefault();
     axios
       .put(`/categorie/${editingCategory.id}`, { nom: editCategoryName })
-      .then((res) => {
-        const updatedCategories = categories.map((cat) =>
-          cat.id === editingCategory.id ? res.data : cat
-        );
-        setCategories(updatedCategories);
+      .then(() => {
+        dispatch(fetchCategories());
         setEditingCategory(null);
       })
       .catch((err) => console.error(err));
@@ -66,7 +61,8 @@ const Categorie = () => {
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Catégories</h1>
-      {error && <p className="text-red-500 mb-2">{error}</p>}
+      {status === 'loading' && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
       {/* Form to add a new category */}
       <form onSubmit={handleAddCategory} className="mb-4 p-2 border rounded">
@@ -83,7 +79,7 @@ const Categorie = () => {
         </button>
       </form>
 
-      {/* Table of categories */}
+      {/* Categories table */}
       <div className="overflow-x-auto">
         <table className="w-full border-collapse bg-white shadow">
           <thead className="bg-gray-200">
