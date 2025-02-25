@@ -3,14 +3,14 @@ import Categorie from './components/Categorie';
 
 const App = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-blue-500">
-      <div className="text-center bg-white p-4 rounded">
-        <p>React 19 is running</p>
-        <p>by Thuthikaran.</p>
-        <Produit />
+    <div className="min-h-screen bg-blue-500 p-4">
+      <div className="bg-white p-4 rounded">
         <Categorie />
+        <Produit />
       </div>
     </div>
   );
 };
 export default App;
+
+
