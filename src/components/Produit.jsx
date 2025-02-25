@@ -1,23 +1,83 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../services/axios';
+import AddProductForm from './AddProductForm';
 
 const Produit = () => {
   const [produits, setProduits] = useState([]);
   const [error, setError] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [editNom, setEditNom] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editPrix, setEditPrix] = useState('');
+  const [editCategorie, setEditCategorie] = useState('');
 
-  useEffect(() => {
+  const fetchProducts = () => {
     axios
       .get('/produit')
       .then((res) => setProduits(res.data))
-      .catch(() => setError('Erreur lors de la récupération des produits.'));
+      .catch(() => setError('Error fetching products'));
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
+
+  // Callback for when a new product is added
+  const handleProductAdded = (newProduct) => {
+    setProduits((prev) => [...prev, newProduct]);
+  };
+
+  // Delete a product
+  const handleDelete = (id) => {
+    axios
+      .delete(`/produit/${id}`)
+      .then(() => {
+        setProduits(produits.filter((prod) => prod.id !== id));
+      })
+      .catch((err) => console.error('Delete error', err));
+  };
+
+  // Start editing a product
+  const startEditing = (product) => {
+    setEditingProduct(product);
+    setEditNom(product.nom);
+    setEditDescription(product.description);
+    setEditPrix(product.prix);
+    setEditCategorie(product.categorie ? product.categorie.id : '');
+  };
+
+  // Submit the edited product
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    const updatedProduct = {
+      nom: editNom,
+      description: editDescription,
+      prix: parseInt(editPrix, 10),
+      categorie: editCategorie,
+    };
+    // Note: Using `/produit/${editingProduct.id}` because axios base URL is already set to `/api`
+    axios
+      .put(`/produit/${editingProduct.id}`, updatedProduct)
+      .then((res) => {
+        setProduits(
+          produits.map((prod) =>
+            prod.id === editingProduct.id ? res.data : prod
+          )
+        );
+        setEditingProduct(null);
+      })
+      .catch((err) => console.error('Update error', err));
+  };
 
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Produits</h1>
       {error && <p className="text-red-500 mb-2">{error}</p>}
 
-      <div className="overflow-x-auto">
+      {/* Form to add a new product */}
+      <AddProductForm onProductAdded={handleProductAdded} />
+
+      <div className="overflow-x-auto mt-4">
         <table className="w-full border-collapse bg-white shadow">
           <thead className="bg-gray-200">
             <tr>
@@ -25,24 +85,96 @@ const Produit = () => {
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Prix</th>
               <th className="py-2 px-4 border">Catégorie</th>
+              <th className="py-2 px-4 border">Actions</th>
             </tr>
           </thead>
           <tbody>
             {produits.map((prod) => (
               <tr key={prod.id} className="hover:bg-gray-50">
-                <td className="py-2 px-4 border">{prod.nom}</td>
                 <td className="py-2 px-4 border">
-                  {prod.description || 'N/A'}
+                  {editingProduct && editingProduct.id === prod.id ? (
+                    <input
+                      value={editNom}
+                      onChange={(e) => setEditNom(e.target.value)}
+                      className="border p-1"
+                    />
+                  ) : (
+                    prod.nom
+                  )}
                 </td>
-                <td className="py-2 px-4 border">{prod.prix} €</td>
                 <td className="py-2 px-4 border">
-                  {prod.categorie?.nom || 'Non spécifiée'}
+                  {editingProduct && editingProduct.id === prod.id ? (
+                    <input
+                      value={editDescription}
+                      onChange={(e) => setEditDescription(e.target.value)}
+                      className="border p-1"
+                    />
+                  ) : (
+                    prod.description
+                  )}
+                </td>
+                <td className="py-2 px-4 border">
+                  {editingProduct && editingProduct.id === prod.id ? (
+                    <input
+                      type="number"
+                      step="1"
+                      value={editPrix}
+                      onChange={(e) => setEditPrix(e.target.value)}
+                      className="border p-1"
+                    />
+                  ) : (
+                    prod.prix + ' €'
+                  )}
+                </td>
+                <td className="py-2 px-4 border">
+                  {editingProduct && editingProduct.id === prod.id ? (
+                    <input
+                      value={editCategorie}
+                      onChange={(e) => setEditCategorie(e.target.value)}
+                      className="border p-1"
+                    />
+                  ) : (
+                    prod.categorie?.nom || 'Non spécifiée'
+                  )}
+                </td>
+                <td className="py-2 px-4 border">
+                  {editingProduct && editingProduct.id === prod.id ? (
+                    <>
+                      <button
+                        onClick={handleEditSubmit}
+                        className="bg-green-500 text-white p-1 m-1"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setEditingProduct(null)}
+                        className="bg-gray-500 text-white p-1 m-1"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => startEditing(prod)}
+                        className="bg-yellow-500 text-white p-1 m-1"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(prod.id)}
+                        className="bg-red-500 text-white p-1 m-1"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
             {produits.length === 0 && (
               <tr>
-                <td className="py-2 px-4 text-center border" colSpan="4">
+                <td className="py-2 px-4 text-center border" colSpan="5">
                   Aucun produit disponible
                 </td>
               </tr>
