@@ -47,5 +47,10 @@
     "bugs": {
         "url": "https://github.com/Thuthikaran/teachr-test-technique-react/issues"
     },
-    "homepage": "https://github.com/Thuthikaran/teachr-test-technique-react#readme"
+    "homepage": "https://github.com/Thuthikaran/teachr-test-technique-react#readme",
+    "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+}
+
 }
