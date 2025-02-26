@@ -79,10 +79,10 @@ const Produit = () => {
       {/* Form to add a new product */}
       <AddProductForm onProductAdded={handleProductAdded} />
 
-      <div className="overflow-x-auto mt-4">
+      <div className="overflow-x-auto mt-4 ">
         <table className="min-w-full table-auto border-collapse bg-white shadow">
-          <thead className="bg-gray-200">
-            <tr>
+          <thead>
+            <tr className="bg-[#015C81] text-white">
               <th className="py-2 px-4 border">Nom</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Prix</th>
@@ -152,13 +152,13 @@ const Produit = () => {
                         onClick={handleEditSubmit}
                         className="bg-green-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
                       >
-                        <FontAwesomeIcon icon={faPen} />
+                        Sauvegarder
                       </button>
                       <button
                         onClick={() => setEditingProduct(null)}
                         className="bg-gray-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
                       >
-                        <FontAwesomeIcon icon={faTrash} />
+                        Annuler
                       </button>
                     </>
                   ) : (

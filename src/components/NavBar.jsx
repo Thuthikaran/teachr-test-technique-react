@@ -1,10 +1,26 @@
-/* eslint-disable react/no-unescaped-entities */
 const NavBar = () => {
   return (
-    <nav className="rounded-lg bg-[#2F73E2] shadow p-2  flex items-center justify-between">
-      <div className="text-2xl font-bold text-white">Teach'r</div>
+    <nav className="bg-[#DAE3F9] shadow p-2  flex items-center justify-between">
+      <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+        StackShelf
+      </div>
       <div className="flex items-center">
-        <span className="mr-4 text-white font-bold">Thuthikaran Easvaran</span>
+        <a
+          href="https://thuthikaran.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mr-4 flex items-center font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
+        >
+          Portfolio
+        </a>
+        <a
+          href="https://thuthikaran.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mr-4 flex items-center font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
+        >
+          Github
+        </a>
         <img
           src="/src/Untitled.png"
           alt="Profile"

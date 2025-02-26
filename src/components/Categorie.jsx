@@ -76,7 +76,7 @@ const Categorie = () => {
           placeholder="Nom de la catégorie"
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
-          className="border p-1 m-1"
+          className="border border-black p-1 m-1 "
           required
         />
         <button
@@ -92,7 +92,9 @@ const Categorie = () => {
         <table className="w-full border-collapse bg-white shadow">
           <thead className="bg-gray-200">
             <tr>
-              <th className="py-2 px-4 border">Catégories</th>
+              <th className="py-2 px-4 border bg-[#015C81] text-white">
+                Catégories
+              </th>
             </tr>
           </thead>
           <tbody>
