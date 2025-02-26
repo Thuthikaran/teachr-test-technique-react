@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../features/categorySlice';
 import axios from '../services/axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Categorie = () => {
   const dispatch = useDispatch();
@@ -65,7 +67,10 @@ const Categorie = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {/* Form to add a new category */}
-      <form onSubmit={handleAddCategory} className="mb-4 p-2 border rounded">
+      <form
+        onSubmit={handleAddCategory}
+        className="bg-[#D8E1F9] mb-4 p-2 border rounded"
+      >
         <input
           type="text"
           placeholder="Nom de la catégorie"
@@ -74,7 +79,10 @@ const Categorie = () => {
           className="border p-1 m-1"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white p-1 m-1">
+        <button
+          type="submit"
+          className="bg-[#1176EA] text-white pt-1 pb-1 pr-2 pl-2 rounded-full hover:cursor-pointer m-1"
+        >
           Ajouter Catégorie
         </button>
       </form>
@@ -84,37 +92,35 @@ const Categorie = () => {
         <table className="w-full border-collapse bg-white shadow">
           <thead className="bg-gray-200">
             <tr>
-              <th className="py-2 px-4 border">Nom</th>
-              <th className="py-2 px-4 border">Actions</th>
+              <th className="py-2 px-4 border">Catégories</th>
             </tr>
           </thead>
           <tbody>
             {categories.map((cat) => (
               <tr key={cat.id} className="hover:bg-gray-50">
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border flex items-center justify-between">
                   {editingCategory && editingCategory.id === cat.id ? (
                     <input
                       type="text"
                       value={editCategoryName}
                       onChange={(e) => setEditCategoryName(e.target.value)}
-                      className="border p-1"
+                      className="border p-1 flex-grow mr-2"
                     />
                   ) : (
-                    cat.nom
+                    <span className="flex-grow">{cat.nom}</span>
                   )}
-                </td>
-                <td className="py-2 px-4 border">
+
                   {editingCategory && editingCategory.id === cat.id ? (
                     <>
                       <button
                         onClick={handleEditCategory}
-                        className="bg-green-500 text-white p-1 m-1"
+                        className="bg-green-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
                       >
                         Sauvegarder
                       </button>
                       <button
                         onClick={() => setEditingCategory(null)}
-                        className="bg-gray-500 text-white p-1 m-1"
+                        className="bg-gray-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
                       >
                         Annuler
                       </button>
@@ -123,15 +129,15 @@ const Categorie = () => {
                     <>
                       <button
                         onClick={() => startEditingCategory(cat)}
-                        className="bg-yellow-500 text-white p-1 m-1"
+                        className="bg-[#219CFF] text-white m-1 pt-1 pb-1 pr-2 pl-2 rounded-full hover:cursor-pointer"
                       >
-                        Modifier
+                        <FontAwesomeIcon icon={faPen} />
                       </button>
                       <button
                         onClick={() => handleDeleteCategory(cat.id)}
-                        className="bg-red-500 text-white p-1 m-1"
+                        className="bg-[#FF714F] text-white pt-1 pb-1 pr-2 pl-2 rounded-full hover:cursor-pointer m-1"
                       >
-                        Supprimer
+                        <FontAwesomeIcon icon={faTrash} />
                       </button>
                     </>
                   )}
@@ -140,7 +146,7 @@ const Categorie = () => {
             ))}
             {categories.length === 0 && (
               <tr>
-                <td className="py-2 px-4 text-center border" colSpan="2">
+                <td className="py-2 px-4 text-center border">
                   Aucune catégorie disponible
                 </td>
               </tr>

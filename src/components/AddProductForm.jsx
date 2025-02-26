@@ -7,6 +7,7 @@ const AddProductForm = ({ onProductAdded }) => {
   const [description, setDescription] = useState('');
   const [prix, setPrix] = useState('');
   const [categorieId, setCategorieId] = useState('');
+  const [dateCreation, setDateCreation] = useState(''); // New state for date
 
   // Store all categories
   const [categories, setCategories] = useState([]);
@@ -24,8 +25,9 @@ const AddProductForm = ({ onProductAdded }) => {
     const newProduct = {
       nom,
       description,
-      prix: parseInt(prix, 10), // Using integer values now
-      categorie: categorieId, // The chosen category ID
+      prix: parseInt(prix, 10),
+      categorie: categorieId,
+      dateCreation, // If you send it, you'll have to handle it on the backend
     };
 
     try {
@@ -35,15 +37,17 @@ const AddProductForm = ({ onProductAdded }) => {
       setDescription('');
       setPrix('');
       setCategorieId('');
+      setDateCreation('');
     } catch (error) {
       console.error('Error adding product', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 p-2 border rounded">
-      <h2 className="text-lg font-bold mb-2">Add New Product</h2>
-
+    <form
+      onSubmit={handleSubmit}
+      className="mb-4 p-2 border rounded bg-[#D8E1F9] text-black"
+    >
       <input
         type="text"
         placeholder="Nom"
@@ -82,8 +86,19 @@ const AddProductForm = ({ onProductAdded }) => {
           </option>
         ))}
       </select>
+      {/* Optional: Manual Date Creation Field */}
+      <input
+        type="date"
+        placeholder="Date de création"
+        value={dateCreation}
+        onChange={(e) => setDateCreation(e.target.value)}
+        className="border p-1 m-1"
+      />
 
-      <button type="submit" className="bg-blue-500 text-white p-1 m-1">
+      <button
+        type="submit"
+        className="bg-[#1176EA] rounded-full text-white pt-1 pb-1 pr-2 pl-2 hover:cursor-pointer m-1"
+      >
         Add Product
       </button>
     </form>
