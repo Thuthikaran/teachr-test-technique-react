@@ -10,9 +10,10 @@ http {
     keepalive_timeout 65;
 
     server {
-        listen <%= ENV["PORT"] %>;
+        listen <%= ENV["PORT"] %>;  # Bind to Heroku's dynamic PORT
         root /app/dist;
         index index.html;
+
         location / {
             try_files $uri /index.html;
         }
