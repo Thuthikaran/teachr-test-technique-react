@@ -89,7 +89,7 @@ const Produit = () => {
         placeholder="Rechercher un produit..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="border p-2 mb-4 w-full"
+        className="border p-2 mb-4 w-full bg-[#D8E1F9]"
       />
 
       <AddProductForm
@@ -221,7 +221,6 @@ const Produit = () => {
         </table>
       </div>
     </div>
-    
   );
 };
 
