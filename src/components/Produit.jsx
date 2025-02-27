@@ -28,7 +28,7 @@ const Produit = () => {
   }, [dispatch]);
 
   const refreshCategories = () => {
-    dispatch(fetchCategories()); // Re-fetch categories when a new one is added
+    dispatch(fetchCategories()); // Re-fetch categories when a new one is added or product is deleted
   };
 
   const startEditing = (product) => {
@@ -60,6 +60,16 @@ const Produit = () => {
         refreshCategories(); // Refresh categories after update
       })
       .catch((err) => console.error('Update error', err));
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`/produit/${id}`)
+      .then(() => {
+        setProduits(produits.filter((prod) => prod.id !== id));
+        refreshCategories(); // ✅ Refresh categories after deleting a product
+      })
+      .catch((err) => console.error('Delete error', err));
   };
 
   return (
@@ -164,15 +174,7 @@ const Produit = () => {
                         <FontAwesomeIcon icon={faPen} />
                       </button>
                       <button
-                        onClick={() =>
-                          axios
-                            .delete(`/produit/${prod.id}`)
-                            .then(() =>
-                              setProduits(
-                                produits.filter((p) => p.id !== prod.id)
-                              )
-                            )
-                        }
+                        onClick={() => handleDelete(prod.id)}
                         className="bg-[#FF714F] text-white pt-1 pb-1 pr-2 pl-2 rounded-full hover:cursor-pointer m-1"
                       >
                         <FontAwesomeIcon icon={faTrash} />
