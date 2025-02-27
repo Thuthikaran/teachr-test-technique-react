@@ -180,7 +180,7 @@ const Produit = () => {
                     <>
                       <button
                         onClick={handleEditSubmit}
-                        className="bg-green-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
+                        className="bg-[#219CFF] text-white p-1 m-1 rounded-full hover:cursor-pointer"
                       >
                         Sauvegarder
                       </button>
