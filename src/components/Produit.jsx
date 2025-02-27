@@ -12,7 +12,7 @@ const Produit = () => {
 
   const [produits, setProduits] = useState([]);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // ✅ Search state
+  const [searchTerm, setSearchTerm] = useState('');
   const [editingProduct, setEditingProduct] = useState(null);
   const [editNom, setEditNom] = useState('');
   const [editDescription, setEditDescription] = useState('');
@@ -106,6 +106,8 @@ const Produit = () => {
               <th className="py-2 px-4 border">Nom</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Prix</th>
+              <th className="py-2 px-4 border">Date de création</th>{' '}
+              {/* ✅ Added Column */}
               <th className="py-2 px-4 border">Catégorie</th>
               <th className="py-2 px-4 border">Actions</th>
             </tr>
@@ -147,6 +149,13 @@ const Produit = () => {
                   ) : (
                     prod.prix + ' €'
                   )}
+                </td>
+                <td className="py-2 px-4 border">
+                  {' '}
+                  {/* ✅ Display Date */}
+                  {prod.dateCreation
+                    ? new Date(prod.dateCreation).toLocaleDateString('fr-FR')
+                    : 'N/A'}
                 </td>
                 <td className="py-2 px-4 border">
                   {editingProduct?.id === prod.id ? (
@@ -203,7 +212,7 @@ const Produit = () => {
             ))}
             {filteredProducts.length === 0 && (
               <tr>
-                <td className="py-2 px-4 text-center border" colSpan="5">
+                <td className="py-2 px-4 text-center border" colSpan="6">
                   Aucun produit trouvé.
                 </td>
               </tr>
