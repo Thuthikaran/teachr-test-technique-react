@@ -1,7 +1,7 @@
 const NavBar = () => {
   return (
-    <nav className="bg-[#DAE3F9] shadow p-2  flex items-center justify-between">
-      <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+    <nav className="bg-[#015C81] shadow p-2  flex items-center justify-between">
+      <div className="text-2xl font-bold bg-gradient-to-r from-cyan-200 to-blue-500 bg-clip-text text-transparent">
         StackShelf
       </div>
       <div className="flex items-center">
@@ -9,7 +9,7 @@ const NavBar = () => {
           href="https://github.com/Thuthikaran/teachr-test-technique"
           target="_blank"
           rel="noopener noreferrer"
-          className="mr-4 flex items-center font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
+          className="mr-4 flex items-center font-bold bg-gradient-to-r from-cyan-200 to-blue-500 bg-clip-text text-transparent"
         >
           PHP
         </a>
@@ -17,7 +17,7 @@ const NavBar = () => {
           href="https://github.com/Thuthikaran/teachr-test-technique-react"
           target="_blank"
           rel="noopener noreferrer"
-          className="mr-4 flex items-center font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
+          className="mr-4 flex items-center font-bold bg-gradient-to-r from-cyan-200 to-blue-500 bg-clip-text text-transparent"
         >
           React
         </a>
@@ -25,7 +25,7 @@ const NavBar = () => {
           href="https://thuthikaran.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="mr-4 flex items-center font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
+          className="mr-4 flex items-center font-bold bg-gradient-to-r from-cyan-200 to-blue-500 bg-clip-text text-transparent"
         >
           Portfolio
         </a>
