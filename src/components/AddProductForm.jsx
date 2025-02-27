@@ -52,7 +52,7 @@ const AddProductForm = ({ onProductAdded }) => {
         placeholder="Nom"
         value={nom}
         onChange={(e) => setNom(e.target.value)}
-        className="border p-1 m-1"
+        className="border p-1 m-1 bg-[white]"
         required
       />
       <input
@@ -60,7 +60,7 @@ const AddProductForm = ({ onProductAdded }) => {
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="border p-1 m-1"
+        className="border p-1 m-1 bg-[white]"
         required
       />
       <input
@@ -69,13 +69,13 @@ const AddProductForm = ({ onProductAdded }) => {
         placeholder="Prix"
         value={prix}
         onChange={(e) => setPrix(e.target.value)}
-        className="border p-1 m-1"
+        className="border p-1 m-1 bg-[white]"
         required
       />
       <select
         value={categorieId}
         onChange={(e) => setCategorieId(e.target.value)}
-        className="border p-1 m-1"
+        className="border p-1 m-1 bg-[white]"
         required
       >
         <option value="">-- Choisir une catégorie --</option>
@@ -91,7 +91,7 @@ const AddProductForm = ({ onProductAdded }) => {
         placeholder="Date de création"
         value={dateCreation}
         onChange={(e) => setDateCreation(e.target.value)}
-        className="border p-1 m-1"
+        className="border p-1 m-1 bg-[white]"
       />
 
       <button

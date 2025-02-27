@@ -70,8 +70,8 @@ const Categorie = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-2">Catégories</h1>
+    <div className="p-4 bg-[#E6F2F5]">
+      {/* <h1 className="text-3xl font-extrabold mb-4 text-[black]]">Catégories</h1> */}
       {status === 'loading' && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
@@ -85,7 +85,7 @@ const Categorie = () => {
           placeholder="Nom de la catégorie"
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
-          className="border border-black p-1 m-1 "
+          className="border border-black p-1 m-1 bg-[white]"
           required
         />
         <button
@@ -101,7 +101,7 @@ const Categorie = () => {
         <table className="w-full border-collapse bg-white shadow">
           <thead className="bg-gray-200">
             <tr>
-              <th className="py-2 px-4 border bg-[#015C81] text-white">
+              <th className="py-2 px-4 border bg-[#015C81] text-3xl font-extrabold mb-4 text-[white]">
                 Catégories
               </th>
             </tr>

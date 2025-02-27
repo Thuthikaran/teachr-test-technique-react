@@ -79,8 +79,9 @@ const Produit = () => {
   );
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-2">Produits</h1>
+    <div className="p-4 bg-[#E6F2F5]">
+      <h1 className="text-3xl font-extrabold mb-4 text-[black]]">Produits</h1>
+
       {error && <p className="text-red-500 mb-2">{error}</p>}
 
       {/* ✅ Search Input */}
@@ -89,7 +90,7 @@ const Produit = () => {
         placeholder="Rechercher un produit..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="border p-2 mb-4 w-full bg-[#D8E1F9]"
+        className="border p-2 mb-4 w-full bg-[white]"
       />
 
       <AddProductForm
@@ -109,7 +110,7 @@ const Produit = () => {
               <th className="py-2 px-4 border">Date de création</th>{' '}
               {/* ✅ Added Column */}
               <th className="py-2 px-4 border">Catégorie</th>
-              <th className="py-2 px-4 border">Actions</th>
+              <th className="py-2 px-4 border">Options</th>
             </tr>
           </thead>
           <tbody>

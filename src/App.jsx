@@ -4,8 +4,8 @@ import NavBar from './components/NavBar'
 
 const App = () => {
   return (
-    <div className="bg-[#004066]">
-      <div className="bg-white rounded">
+    <div className="">
+      <div className="rounded">
         <NavBar />
         <Categorie />
         <Produit />
