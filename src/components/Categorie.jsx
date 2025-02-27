@@ -34,6 +34,15 @@ const Categorie = () => {
 
   // Delete a category
   const handleDeleteCategory = (id) => {
+    const category = categories.find((cat) => cat.id === id);
+
+    if (category?.produits && category.produits.length > 0) {
+      alert(
+        'Impossible de supprimer cette catégorie, elle contient des produits.'
+      );
+      return;
+    }
+
     axios
       .delete(`/categorie/${id}`)
       .then(() => {

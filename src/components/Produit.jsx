@@ -1,10 +1,16 @@
+// Updated Produit.jsx
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCategories } from '../features/categorySlice';
 import axios from '../services/axios';
 import AddProductForm from './AddProductForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Produit = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+
   const [produits, setProduits] = useState([]);
   const [error, setError] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -13,51 +19,32 @@ const Produit = () => {
   const [editPrix, setEditPrix] = useState('');
   const [editCategorie, setEditCategorie] = useState('');
 
-  const fetchProducts = () => {
+  useEffect(() => {
     axios
       .get('/produit')
       .then((res) => setProduits(res.data))
       .catch(() => setError('Error fetching products'));
-  };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+    dispatch(fetchCategories()); // Fetch categories from Redux
+  }, [dispatch]);
 
-  // Callback for when a new product is added
-  const handleProductAdded = (newProduct) => {
-    setProduits((prev) => [...prev, newProduct]);
-  };
-
-  // Delete a product
-  const handleDelete = (id) => {
-    axios
-      .delete(`/produit/${id}`)
-      .then(() => {
-        setProduits(produits.filter((prod) => prod.id !== id));
-      })
-      .catch((err) => console.error('Delete error', err));
-  };
-
-  // Start editing a product
   const startEditing = (product) => {
     setEditingProduct(product);
     setEditNom(product.nom);
     setEditDescription(product.description);
     setEditPrix(product.prix);
-    setEditCategorie(product.categorie ? product.categorie.id : '');
+    setEditCategorie(product.categorie ? product.categorie.id : ''); // Store ID
   };
 
-  // Submit the edited product
   const handleEditSubmit = (e) => {
     e.preventDefault();
     const updatedProduct = {
       nom: editNom,
       description: editDescription,
       prix: parseInt(editPrix, 10),
-      categorie: editCategorie,
+      categorie: parseInt(editCategorie, 10), // Send ID instead of name
     };
-    // Using `/produit/${editingProduct.id}` because axios base URL is already set to `/api`
+
     axios
       .put(`/produit/${editingProduct.id}`, updatedProduct)
       .then((res) => {
@@ -75,18 +62,18 @@ const Produit = () => {
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Produits</h1>
       {error && <p className="text-red-500 mb-2">{error}</p>}
-
-      {/* Form to add a new product */}
-      <AddProductForm onProductAdded={handleProductAdded} />
-
-      <div className="overflow-x-auto mt-4 ">
+      <AddProductForm
+        onProductAdded={(newProduct) =>
+          setProduits((prev) => [...prev, newProduct])
+        }
+      />
+      <div className="overflow-x-auto mt-4">
         <table className="min-w-full table-auto border-collapse bg-white shadow">
           <thead>
             <tr className="bg-[#015C81] text-white">
               <th className="py-2 px-4 border">Nom</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Prix</th>
-              <th className="py-2 px-4 border">Date de création</th>
               <th className="py-2 px-4 border">Catégorie</th>
               <th className="py-2 px-4 border">Actions</th>
             </tr>
@@ -95,7 +82,7 @@ const Produit = () => {
             {produits.map((prod) => (
               <tr key={prod.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border">
-                  {editingProduct && editingProduct.id === prod.id ? (
+                  {editingProduct?.id === prod.id ? (
                     <input
                       value={editNom}
                       onChange={(e) => setEditNom(e.target.value)}
@@ -106,7 +93,7 @@ const Produit = () => {
                   )}
                 </td>
                 <td className="py-2 px-4 border">
-                  {editingProduct && editingProduct.id === prod.id ? (
+                  {editingProduct?.id === prod.id ? (
                     <input
                       value={editDescription}
                       onChange={(e) => setEditDescription(e.target.value)}
@@ -117,7 +104,7 @@ const Produit = () => {
                   )}
                 </td>
                 <td className="py-2 px-4 border">
-                  {editingProduct && editingProduct.id === prod.id ? (
+                  {editingProduct?.id === prod.id ? (
                     <input
                       type="number"
                       step="1"
@@ -130,23 +117,25 @@ const Produit = () => {
                   )}
                 </td>
                 <td className="py-2 px-4 border">
-                  {prod.dateCreation
-                    ? new Date(prod.dateCreation).toLocaleString('fr-FR')
-                    : 'N/A'}
-                </td>
-                <td className="py-2 px-4 border">
-                  {editingProduct && editingProduct.id === prod.id ? (
-                    <input
+                  {editingProduct?.id === prod.id ? (
+                    <select
                       value={editCategorie}
                       onChange={(e) => setEditCategorie(e.target.value)}
                       className="border p-1"
-                    />
+                    >
+                      <option value="">Sélectionner une catégorie</option>
+                      {categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.nom}
+                        </option>
+                      ))}
+                    </select>
                   ) : (
                     prod.categorie?.nom || 'Non spécifiée'
                   )}
                 </td>
                 <td className="py-2 px-4 border">
-                  {editingProduct && editingProduct.id === prod.id ? (
+                  {editingProduct?.id === prod.id ? (
                     <>
                       <button
                         onClick={handleEditSubmit}
@@ -170,7 +159,15 @@ const Produit = () => {
                         <FontAwesomeIcon icon={faPen} />
                       </button>
                       <button
-                        onClick={() => handleDelete(prod.id)}
+                        onClick={() =>
+                          axios
+                            .delete(`/produit/${prod.id}`)
+                            .then(() =>
+                              setProduits(
+                                produits.filter((p) => p.id !== prod.id)
+                              )
+                            )
+                        }
                         className="bg-[#FF714F] text-white pt-1 pb-1 pr-2 pl-2 rounded-full hover:cursor-pointer m-1"
                       >
                         <FontAwesomeIcon icon={faTrash} />
@@ -182,7 +179,7 @@ const Produit = () => {
             ))}
             {produits.length === 0 && (
               <tr>
-                <td className="py-2 px-4 text-center border" colSpan="6">
+                <td className="py-2 px-4 text-center border" colSpan="5">
                   Aucun produit disponible
                 </td>
               </tr>
