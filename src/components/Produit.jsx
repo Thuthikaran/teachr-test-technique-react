@@ -1,4 +1,3 @@
-// Updated Produit.jsx
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../features/categorySlice';
@@ -28,6 +27,10 @@ const Produit = () => {
     dispatch(fetchCategories()); // Fetch categories from Redux
   }, [dispatch]);
 
+  const refreshCategories = () => {
+    dispatch(fetchCategories()); // Re-fetch categories when a new one is added
+  };
+
   const startEditing = (product) => {
     setEditingProduct(product);
     setEditNom(product.nom);
@@ -54,6 +57,7 @@ const Produit = () => {
           )
         );
         setEditingProduct(null);
+        refreshCategories(); // Refresh categories after update
       })
       .catch((err) => console.error('Update error', err));
   };
@@ -63,9 +67,10 @@ const Produit = () => {
       <h1 className="text-xl font-bold mb-2">Produits</h1>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       <AddProductForm
-        onProductAdded={(newProduct) =>
-          setProduits((prev) => [...prev, newProduct])
-        }
+        onProductAdded={(newProduct) => {
+          setProduits((prev) => [...prev, newProduct]);
+          refreshCategories(); // Refresh categories after adding a new one
+        }}
       />
       <div className="overflow-x-auto mt-4">
         <table className="min-w-full table-auto border-collapse bg-white shadow">
@@ -177,13 +182,6 @@ const Produit = () => {
                 </td>
               </tr>
             ))}
-            {produits.length === 0 && (
-              <tr>
-                <td className="py-2 px-4 text-center border" colSpan="5">
-                  Aucun produit disponible
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>

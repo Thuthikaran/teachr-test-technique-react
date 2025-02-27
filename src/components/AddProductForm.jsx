@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react';
 import axios from '../services/axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../features/categorySlice';
 
 // eslint-disable-next-line react/prop-types
 const AddProductForm = ({ onProductAdded }) => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+
   const [nom, setNom] = useState('');
   const [description, setDescription] = useState('');
   const [prix, setPrix] = useState('');
   const [categorieId, setCategorieId] = useState('');
   const [dateCreation, setDateCreation] = useState(''); // New state for date
 
-  // Store all categories
-  const [categories, setCategories] = useState([]);
-
   useEffect(() => {
-    // Fetch categories to populate the dropdown
-    axios
-      .get('/categorie')
-      .then((res) => setCategories(res.data))
-      .catch((err) => console.error('Error fetching categories', err));
-  }, []);
+    dispatch(fetchCategories()); // Fetch categories from Redux
+  }, [dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +36,7 @@ const AddProductForm = ({ onProductAdded }) => {
       setPrix('');
       setCategorieId('');
       setDateCreation('');
+      dispatch(fetchCategories()); // Refresh categories after adding a new one
     } catch (error) {
       console.error('Error adding product', error);
     }
