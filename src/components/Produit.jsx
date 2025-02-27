@@ -12,6 +12,7 @@ const Produit = () => {
 
   const [produits, setProduits] = useState([]);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(''); // ✅ Search state
   const [editingProduct, setEditingProduct] = useState(null);
   const [editNom, setEditNom] = useState('');
   const [editDescription, setEditDescription] = useState('');
@@ -36,7 +37,7 @@ const Produit = () => {
     setEditNom(product.nom);
     setEditDescription(product.description);
     setEditPrix(product.prix);
-    setEditCategorie(product.categorie ? product.categorie.id : ''); // Store ID
+    setEditCategorie(product.categorie ? product.categorie.id : '');
   };
 
   const handleEditSubmit = (e) => {
@@ -45,7 +46,7 @@ const Produit = () => {
       nom: editNom,
       description: editDescription,
       prix: parseInt(editPrix, 10),
-      categorie: parseInt(editCategorie, 10), // Send ID instead of name
+      categorie: parseInt(editCategorie, 10),
     };
 
     axios
@@ -57,7 +58,7 @@ const Produit = () => {
           )
         );
         setEditingProduct(null);
-        refreshCategories(); // Refresh categories after update
+        refreshCategories();
       })
       .catch((err) => console.error('Update error', err));
   };
@@ -67,21 +68,37 @@ const Produit = () => {
       .delete(`/produit/${id}`)
       .then(() => {
         setProduits(produits.filter((prod) => prod.id !== id));
-        refreshCategories(); // ✅ Refresh categories after deleting a product
+        refreshCategories();
       })
       .catch((err) => console.error('Delete error', err));
   };
+
+  // ✅ Filter products based on search term (case-insensitive)
+  const filteredProducts = produits.filter((prod) =>
+    prod.nom.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Produits</h1>
       {error && <p className="text-red-500 mb-2">{error}</p>}
+
+      {/* ✅ Search Input */}
+      <input
+        type="text"
+        placeholder="Rechercher un produit..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="border p-2 mb-4 w-full"
+      />
+
       <AddProductForm
         onProductAdded={(newProduct) => {
           setProduits((prev) => [...prev, newProduct]);
-          refreshCategories(); // Refresh categories after adding a new one
+          refreshCategories();
         }}
       />
+
       <div className="overflow-x-auto mt-4">
         <table className="min-w-full table-auto border-collapse bg-white shadow">
           <thead>
@@ -94,7 +111,7 @@ const Produit = () => {
             </tr>
           </thead>
           <tbody>
-            {produits.map((prod) => (
+            {filteredProducts.map((prod) => (
               <tr key={prod.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border">
                   {editingProduct?.id === prod.id ? (
@@ -184,6 +201,13 @@ const Produit = () => {
                 </td>
               </tr>
             ))}
+            {filteredProducts.length === 0 && (
+              <tr>
+                <td className="py-2 px-4 text-center border" colSpan="5">
+                  Aucun produit trouvé.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
