@@ -115,7 +115,7 @@ const Produit = () => {
           <tbody>
             {filteredProducts.map((prod) => (
               <tr key={prod.id} className="hover:bg-gray-50">
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {editingProduct?.id === prod.id ? (
                     <input
                       value={editNom}
@@ -126,7 +126,7 @@ const Produit = () => {
                     prod.nom
                   )}
                 </td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {editingProduct?.id === prod.id ? (
                     <input
                       value={editDescription}
@@ -137,7 +137,7 @@ const Produit = () => {
                     prod.description
                   )}
                 </td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {editingProduct?.id === prod.id ? (
                     <input
                       type="number"
@@ -150,14 +150,14 @@ const Produit = () => {
                     prod.prix + ' €'
                   )}
                 </td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {' '}
                   {/* ✅ Display Date */}
                   {prod.dateCreation
                     ? new Date(prod.dateCreation).toLocaleDateString('fr-FR')
                     : 'N/A'}
                 </td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {editingProduct?.id === prod.id ? (
                     <select
                       value={editCategorie}
@@ -175,7 +175,7 @@ const Produit = () => {
                     prod.categorie?.nom || 'Non spécifiée'
                   )}
                 </td>
-                <td className="py-2 px-4 border">
+                <td className="py-2 px-4 border text-center">
                   {editingProduct?.id === prod.id ? (
                     <>
                       <button
