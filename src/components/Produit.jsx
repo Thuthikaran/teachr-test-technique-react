@@ -221,6 +221,7 @@ const Produit = () => {
         </table>
       </div>
     </div>
+    
   );
 };
 

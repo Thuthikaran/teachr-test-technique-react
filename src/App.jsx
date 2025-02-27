@@ -1,7 +1,6 @@
 import Produit from './components/Produit';
 import Categorie from './components/Categorie';
 import NavBar from './components/NavBar'
-// import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -10,7 +9,6 @@ const App = () => {
         <NavBar />
         <Categorie />
         <Produit />
-        {/* < Footer /> */}
       </div>
     </div>
   );
