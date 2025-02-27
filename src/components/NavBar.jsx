@@ -21,11 +21,6 @@ const NavBar = () => {
         >
           Github
         </a>
-        <img
-          src="/src/Untitled.png"
-          alt="Profile"
-          className="w-10 h-10 rounded-full object-cover"
-        />
       </div>
     </nav>
   );
