@@ -4,7 +4,12 @@ import { fetchCategories } from '../features/categorySlice';
 import axios from '../services/axios';
 import AddProductForm from './AddProductForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPen,
+  faTrash,
+  faSortUp,
+  faSortDown,
+} from '@fortawesome/free-solid-svg-icons';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Produit = () => {
@@ -19,6 +24,8 @@ const Produit = () => {
   const [editDescription, setEditDescription] = useState('');
   const [editPrix, setEditPrix] = useState('');
   const [editCategorie, setEditCategorie] = useState('');
+  const [sortCriteria, setSortCriteria] = useState(null);
+  const [sortDirection, setSortDirection] = useState('asc');
 
   useEffect(() => {
     axios
@@ -74,8 +81,29 @@ const Produit = () => {
       .catch((err) => console.error('Delete error', err));
   };
 
-  // ✅ Filter products based on search term (case-insensitive)
-  const filteredProducts = produits.filter((prod) =>
+  const handleSort = (criteria) => {
+    if (sortCriteria === criteria) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortCriteria(criteria);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedProducts = [...produits].sort((a, b) => {
+    if (sortCriteria === 'prix') {
+      return sortDirection === 'asc' ? a.prix - b.prix : b.prix - a.prix;
+    } else if (sortCriteria === 'categorie') {
+      const catA = a.categorie?.nom || '';
+      const catB = b.categorie?.nom || '';
+      return sortDirection === 'asc'
+        ? catA.localeCompare(catB)
+        : catB.localeCompare(catA);
+    }
+    return 0;
+  });
+
+  const filteredProducts = sortedProducts.filter((prod) =>
     prod.nom.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -107,10 +135,49 @@ const Produit = () => {
             <tr className="bg-[#2F74E2] text-white">
               <th className="py-2 px-4 border">Nom</th>
               <th className="py-2 px-4 border">Description</th>
-              <th className="py-2 px-4 border">Prix</th>
-              <th className="py-2 px-4 border">Date de création</th>{' '}
-              {/* ✅ Added Column */}
-              <th className="py-2 px-4 border">Catégorie</th>
+              <th className="py-2 px-4 border">
+                <div className="flex items-center justify-center">
+                  <span>Prix</span>
+                  <button
+                    onClick={() => handleSort('prix')}
+                    className="ml-2 focus:outline-none"
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        sortCriteria === 'prix' && sortDirection === 'asc'
+                          ? faSortUp
+                          : faSortDown
+                      }
+                      className={`text-xl ${
+                        sortCriteria === 'prix' ? 'text-[#FF704F]' : 'text-[#FF704F]'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </th>
+              <th className="py-2 px-4 border">Date de création</th>
+              <th className="py-2 px-4 border">
+                <div className="flex items-center justify-center">
+                  <span>Catégorie</span>
+                  <button
+                    onClick={() => handleSort('categorie')}
+                    className="ml-2 focus:outline-none"
+                  >
+                    <FontAwesomeIcon
+                      icon={
+                        sortCriteria === 'categorie' && sortDirection === 'asc'
+                          ? faSortUp
+                          : faSortDown
+                      }
+                      className={`text-xl ${
+                        sortCriteria === 'categorie'
+                          ? 'text-[#FF704F]'
+                          : 'text-[#FF704F]'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </th>
               <th className="py-2 px-4 border">Actions</th>
             </tr>
           </thead>
@@ -153,8 +220,6 @@ const Produit = () => {
                   )}
                 </td>
                 <td className="py-2 px-4 border text-center">
-                  {' '}
-                  {/* ✅ Display Date */}
                   {prod.dateCreation
                     ? new Date(prod.dateCreation).toLocaleDateString('fr-FR')
                     : 'N/A'}
