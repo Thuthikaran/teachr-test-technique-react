@@ -46,17 +46,8 @@ Voici la version en français du fichier README, réorganisée et améliorée po
    ```bash
    npm install
    ```
-
-3. Configurez les variables d'environnement :
-   Créez un fichier `.env` à la racine du projet et ajoutez les informations suivantes :
-   ```ini
-   REACT_APP_API_URL=https://votre-url-heroku/api
-   REACT_APP_CLOUDINARY_CLOUD_NAME=votre_nom_cloudinary
-   REACT_APP_CLOUDINARY_API_KEY=votre_clé_api
-   REACT_APP_CLOUDINARY_UPLOAD_PRESET=votre_préréglage_upload
-   ```
-
-4. Lancez le frontend :
+   
+3. Lancez le frontend :
    ```bash
    npm run dev
    ```
@@ -83,15 +74,7 @@ Le frontend React récupère les données du backend Symfony hébergé sur Herok
 ## � Améliorations de l'Interface Utilisateur
 
 - Arrière-plan dégradé avec motifs.
-- Texte animé avec **Typed.js**.
 - Effets de survol pour une meilleure expérience utilisateur.
-- Boutons de tri pour le prix et les catégories.
-
----
-
-## 📸 Captures d'Écran
-
-Ajoutez des captures d'écran de l'interface utilisateur ici.
 
 ---
 
@@ -123,7 +106,7 @@ Ajoutez des captures d'écran de l'interface utilisateur ici.
 
 ## 📝 Auteur
 
-Développé par **Votre Nom** pour le **test de recrutement Teach'r**.
+Développé par Thuthikaran Easvaran pour le **test de recrutement Teach'r**.
 
 📩 N'hésitez pas à me contacter pour toute question ou retour !
 
