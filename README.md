@@ -36,5 +36,5 @@ StackShelf is a **full-stack application** built with **React.js** for the front
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/thuthikaran/stackshelf.git
-cd stackshelf
+git clone https://github.com/Thuthikaran/teachr-test-technique-react.git
+cd teachr-test-technique-react
