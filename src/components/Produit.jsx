@@ -5,6 +5,7 @@ import axios from '../services/axios';
 import AddProductForm from './AddProductForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Produit = () => {
   const dispatch = useDispatch();
@@ -181,15 +182,15 @@ const Produit = () => {
                     <>
                       <button
                         onClick={handleEditSubmit}
-                        className="bg-[#219CFF] text-white p-1 m-1 rounded-full hover:cursor-pointer"
+                        className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600l hover:cursor-pointer"
                       >
-                        Sauvegarder
+                        <FontAwesomeIcon icon={faCheck} />
                       </button>
                       <button
                         onClick={() => setEditingProduct(null)}
-                        className="bg-gray-500 text-white p-1 m-1 rounded-full hover:cursor-pointer"
+                        className="bg-gray-500 text-white p-2 rounded-lg hover:bg-gray-600 m-1 hover:cursor-pointer"
                       >
-                        Annuler
+                        <FontAwesomeIcon icon={faTimes} />
                       </button>
                     </>
                   ) : (

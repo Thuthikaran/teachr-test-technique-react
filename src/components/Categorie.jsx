@@ -91,7 +91,7 @@ const Categorie = () => {
         />
         <button
           type="submit"
-          className="bg-[#1176EA] text-white py-2 px-4 rounded-lg hover:bg-[#0E5BAF]"
+          className="bg-[#1176EA] text-white py-2 px-4 rounded-lg hover:bg-[#0E5BAF] hover:cursor-pointer"
         >
           Ajouter Catégorie
         </button>
@@ -119,13 +119,13 @@ const Categorie = () => {
                 <>
                   <button
                     onClick={handleEditCategory}
-                    className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600"
+                    className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 hover:cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faCheck} />
                   </button>
                   <button
                     onClick={() => setEditingCategory(null)}
-                    className="bg-gray-500 text-white p-2 rounded-lg hover:bg-gray-600"
+                    className="bg-gray-500 text-white p-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
