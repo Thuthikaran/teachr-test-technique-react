@@ -106,7 +106,3 @@ Le frontend React récupère les données du backend Symfony hébergé sur Herok
 Développé par **Thuthikaran Easvaran** pour le **test de recrutement Teach'r**.
 
 📩 N'hésitez pas à me contacter pour toute question ou retour !
-
----
-
-Cette version inclut désormais les captures d'écran dans la section dédiée. Si vous avez besoin d'autres modifications, faites-moi savoir ! 😊
