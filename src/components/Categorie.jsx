@@ -4,6 +4,7 @@ import { fetchCategories } from '../features/categorySlice';
 import axios from '../services/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Categorie = () => {
   const dispatch = useDispatch();
@@ -101,7 +102,7 @@ const Categorie = () => {
         {categories.map((cat) => (
           <div
             key={cat.id}
-            className="bg-white shadow-md p-4 rounded-lg flex justify-between items-center"
+            className="bg-[#2F74E2] shadow-md p-4 rounded-lg flex justify-between text-white items-center"
           >
             {editingCategory && editingCategory.id === cat.id ? (
               <input
@@ -113,34 +114,33 @@ const Categorie = () => {
             ) : (
               <span className="font-semibold">{cat.nom}</span>
             )}
-
             <div className="flex space-x-2">
               {editingCategory && editingCategory.id === cat.id ? (
                 <>
                   <button
                     onClick={handleEditCategory}
-                    className="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600"
+                    className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600"
                   >
-                    Sauvegarder
+                    <FontAwesomeIcon icon={faCheck} />
                   </button>
                   <button
                     onClick={() => setEditingCategory(null)}
-                    className="bg-gray-500 text-white px-3 py-2 rounded-lg hover:bg-gray-600"
+                    className="bg-gray-500 text-white p-2 rounded-lg hover:bg-gray-600"
                   >
-                    Annuler
+                    <FontAwesomeIcon icon={faTimes} />
                   </button>
                 </>
               ) : (
                 <>
                   <button
                     onClick={() => startEditingCategory(cat)}
-                    className="bg-[#219CFF] text-white p-2 rounded-lg hover:bg-[#0F75C6]"
+                    className="bg-[#219CFF] text-white p-2 rounded-lg hover:bg-[#0F75C6] hover:cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faPen} />
                   </button>
                   <button
                     onClick={() => handleDeleteCategory(cat.id)}
-                    className="bg-[#FF714F] text-white p-2 rounded-lg hover:bg-[#D9583B]"
+                    className="bg-[#FF714F] text-white p-2 rounded-lg hover:bg-[#015C81] hover:cursor-pointer"
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>

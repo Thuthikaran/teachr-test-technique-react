@@ -103,7 +103,7 @@ const Produit = () => {
       <div className="overflow-x-auto mt-4">
         <table className="min-w-full table-auto border-collapse bg-white shadow">
           <thead>
-            <tr className="bg-[#015C81] text-white">
+            <tr className="bg-[#2F74E2] text-white">
               <th className="py-2 px-4 border">Nom</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Prix</th>

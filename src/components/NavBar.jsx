@@ -21,14 +21,6 @@ const NavBar = () => {
         >
           React
         </a>
-        <a
-          href="https://thuthikaran.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mr-4 flex items-center font-bold bg-gradient-to-r from-cyan-200 to-blue-500 bg-clip-text text-transparent"
-        >
-          Portfolio
-        </a>
       </div>
     </nav>
   );
