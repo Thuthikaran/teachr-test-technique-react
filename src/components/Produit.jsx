@@ -109,19 +109,17 @@ const Produit = () => {
 
   return (
     <div className="p-4 bg-[#E6F2F5]">
-      <h1 className="text-3xl font-extrabold mb-4 text-[black]]">Produits</h1>
+      <h1 className="text-3xl font-extrabold mb-4 text-[#2F73E2]">Produits</h1>
 
       {error && <p className="text-red-500 mb-2">{error}</p>}
 
-      {/* ✅ Search Input */}
       <input
         type="text"
-        placeholder="Rechercher un produit..."
+        placeholder="🔍 Rechercher un produit..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="border p-2 mb-4 w-full bg-[white]"
+        className="border border-gray-300 p-2 mb-3 w-72 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#015C81] focus:border-[#015C81] hover:shadow-md transition-shadow duration-200 bg-white"
       />
-
       <AddProductForm
         onProductAdded={(newProduct) => {
           setProduits((prev) => [...prev, newProduct]);
@@ -149,7 +147,9 @@ const Produit = () => {
                           : faSortDown
                       }
                       className={`text-xl ${
-                        sortCriteria === 'prix' ? 'text-[#FF704F]' : 'text-[#FF704F]'
+                        sortCriteria === 'prix'
+                          ? 'text-[#FF704F]'
+                          : 'text-[#FF704F]'
                       }`}
                     />
                   </button>

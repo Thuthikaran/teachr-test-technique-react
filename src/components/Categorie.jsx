@@ -72,7 +72,9 @@ const Categorie = () => {
 
   return (
     <div className="p-4 bg-[#E6F2F5]">
-      <h1 className="text-3xl font-extrabold mb-4 text-black">Catégories</h1>
+      <h1 className="text-3xl font-extrabold mb-4 text-[#2F73E2]">
+        Catégories
+      </h1>
       {status === 'loading' && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
