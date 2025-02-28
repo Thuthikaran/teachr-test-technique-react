@@ -1,4 +1,3 @@
-```markdown
 1. **Page d'accueil**  
    ![Page d'accueil](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_20.49.10_msobba.png)
 
@@ -68,65 +67,3 @@
    ```bash
    git clone https://github.com/Thuthikaran/teachr-test-technique-react.git
    cd teachr-test-technique-react
-   ```
-
-2. Installez les dépendances :
-   ```bash
-   npm install
-   ```
-
-3. Lancez le frontend :
-   ```bash
-   npm run dev
-   ```
-
----
-
-## 🔗 Points d'Accès de l'API
-
-Le frontend React récupère les données du backend Symfony hébergé sur Heroku. Voici les endpoints disponibles :
-
-| Méthode   | Endpoint               | Description                  |
-|----------|------------------------|------------------------------|
-| `GET`    | `/api/produit`         | Obtenir tous les produits    |
-| `POST`   | `/api/produit`         | Ajouter un nouveau produit  |
-| `PUT`    | `/api/produit/{id}`    | Mettre à jour un produit    |
-| `DELETE` | `/api/produit/{id}`    | Supprimer un produit        |
-| `GET`    | `/api/categorie`       | Obtenir toutes les catégories |
-| `POST`   | `/api/categorie`       | Ajouter une nouvelle catégorie |
-| `PUT`    | `/api/categorie/{id}`  | Mettre à jour une catégorie |
-| `DELETE` | `/api/categorie/{id}`  | Supprimer une catégorie     |
-
----
-
-## ✅ Tests & Débogage
-
-- **Tests de l'API** : Utilisez des outils comme **Postman** ou **Thunder Client** pour tester les endpoints de l'API.
-- **Débogage du Frontend** : Ouvrez les DevTools du navigateur (`F12 > Console`) pour vérifier les erreurs.
-
----
-
-## 🚀 Déploiement
-
-### **Déploiement du Frontend (Netlify, Vercel, etc.)**
-1. Compilez le projet :
-   ```bash
-   npm run build
-   ```
-2. Déployez le dossier `dist/` sur des plateformes comme **Vercel**, **Netlify** ou **Firebase Hosting**.
-
----
-
-## � Améliorations Futures
-
-- Ajouter une **authentification JWT** pour les rôles utilisateurs.
-- Implémenter une **pagination** pour les grands ensembles de données.
-- Améliorer l'UI/UX avec des animations et transitions supplémentaires.
-
----
-
-## 📝 Auteur
-
-Développé par **Thuthikaran Easvaran** pour le **test de recrutement Teach'r**.
-
-📩 N'hésitez pas à me contacter pour toute question ou retour !
