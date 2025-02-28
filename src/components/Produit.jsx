@@ -111,7 +111,7 @@ const Produit = () => {
               <th className="py-2 px-4 border">Date de création</th>{' '}
               {/* ✅ Added Column */}
               <th className="py-2 px-4 border">Catégorie</th>
-              <th className="py-2 px-4 border">Options</th>
+              <th className="py-2 px-4 border">Actions</th>
             </tr>
           </thead>
           <tbody>
