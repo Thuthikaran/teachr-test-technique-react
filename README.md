@@ -1,4 +1,3 @@
-
 1. **Page d'accueil**  
    ![Page d'accueil](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_20.49.10_msobba.png)
 
