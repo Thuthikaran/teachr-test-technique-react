@@ -1,4 +1,12 @@
-Voici votre fichier `README.md` mis à jour avec les deux images ajoutées dans la section **Captures d'Écran** :
+## 📸 Captures d'Écran
+
+Voici quelques captures d'écran de l'application :
+
+1. **Page d'accueil**  
+   ![Page d'accueil](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_20.49.10_msobba.png)
+
+2. **Gestion des produits**  
+   ![Gestion des produits](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_21.06.44_hqoacl.png)
 
 ---
 
@@ -68,18 +76,6 @@ Le frontend React récupère les données du backend Symfony hébergé sur Herok
 | `POST`   | `/api/categorie`       | Ajouter une nouvelle catégorie |
 | `PUT`    | `/api/categorie/{id}`  | Mettre à jour une catégorie |
 | `DELETE` | `/api/categorie/{id}`  | Supprimer une catégorie     |
-
----
-
-## 📸 Captures d'Écran
-
-Voici quelques captures d'écran de l'application :
-
-1. **Page d'accueil**  
-   ![Page d'accueil](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_20.49.10_msobba.png)
-
-2. **Gestion des produits**  
-   ![Gestion des produits](https://res.cloudinary.com/drxas1wpe/image/upload/v1740773253/Screenshot_2025-02-28_at_21.06.44_hqoacl.png)
 
 ---
 
