@@ -67,6 +67,7 @@ const AddProductForm = ({ onProductAdded }) => {
         type="number"
         step="1"
         placeholder="Prix"
+        min="0"
         value={prix}
         onChange={(e) => setPrix(e.target.value)}
         className="border p-1 m-1 bg-[white] rounded-lg"
