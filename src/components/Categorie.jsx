@@ -26,7 +26,7 @@ const Categorie = () => {
     e.preventDefault();
     const trimmedValue = newCategoryName.trim();
     if (!trimmedValue) {
-      alert('Please enter a valid category name.');
+      alert('Veuillez entrer un nom de catégorie valide.');
       return;
     } 
     axios
