@@ -99,7 +99,7 @@ const AddProductForm = ({ onProductAdded }) => {
         type="submit"
         className="bg-[#1176EA] rounded-full text-white pt-1 pb-1 pr-2 pl-2 hover:cursor-pointer m-1"
       >
-        Add Product
+        Ajouter un produit
       </button>
     </form>
   );
