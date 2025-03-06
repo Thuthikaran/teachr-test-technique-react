@@ -24,6 +24,11 @@ const Categorie = () => {
   // Add a new category
   const handleAddCategory = (e) => {
     e.preventDefault();
+    const trimmedValue = newCategoryName.trim();
+    if (!trimmedValue) {
+      alert('Please enter a valid category name.');
+      return;
+    } 
     axios
       .post('/categorie', { nom: newCategoryName })
       .then(() => {
