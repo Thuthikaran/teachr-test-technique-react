@@ -66,6 +66,11 @@ const Categorie = () => {
   // Submit the edited category
   const handleEditCategory = (e) => {
     e.preventDefault();
+     const trimmedValue = editCategoryName.trim();
+     if (!trimmedValue) {
+       alert('Veuillez entrer un nom de catégorie valide.');
+       return; // Stop execution if input is invalid
+     }
     axios
       .put(`/categorie/${editingCategory.id}`, { nom: editCategoryName })
       .then(() => {
