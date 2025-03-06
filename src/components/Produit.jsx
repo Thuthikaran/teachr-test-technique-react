@@ -211,6 +211,7 @@ const Produit = () => {
                     <input
                       type="number"
                       step="1"
+                      min="0"
                       value={editPrix}
                       onChange={(e) => setEditPrix(e.target.value)}
                       className="border p-1"
