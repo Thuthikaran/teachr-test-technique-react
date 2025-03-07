@@ -50,14 +50,17 @@ const Produit = () => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    if (!editDescription) {
-      alert('Entrez un nom valide')
+    if (!editNom.trim()) {
+      alert('Entrez une nom valide');
+      return;
     }
-    if (!editNom) {
-      alert('Entrez une description valide');
+    if (!editDescription.trim()) {
+      alert('Entrez un description valide');
+      return;
     }
     if (editPrix == 0) {
       alert('Le prix ne peut pas être 0');
+      return;
     }
     const updatedProduct = {
       nom: editNom,
