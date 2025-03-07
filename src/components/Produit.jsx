@@ -50,6 +50,15 @@ const Produit = () => {
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
+    if (!editDescription) {
+      alert('Entrer une description valide')
+    }
+    if (!editNom) {
+      alert('Entrer une description valide');
+    }
+    if (editPrix == 0) {
+      alert('Prix peut pas etre 0');
+    }
     const updatedProduct = {
       nom: editNom,
       description: editDescription,
